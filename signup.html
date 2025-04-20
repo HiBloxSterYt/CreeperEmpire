@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Signup - CreeperEmpire</title>
-  <link rel="stylesheet" href="styles.css"/>
-
+  <link rel="stylesheet" href="styles.css" />
+  
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
@@ -17,9 +17,37 @@
       projectId: "creeperempire-6fff6",
       appId: "1:120725025254:web:64dac90cee89a5b5b22627"
     };
+
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
   </script>
+  <style>
+    .google-btn {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .google-logo {
+      width: 20px;
+      height: 20px;
+    }
+
+    .username-display {
+      position: fixed;
+      top: 5px;
+      left: 10px;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
 </head>
 <body>
   <div class="navbar">
@@ -36,17 +64,23 @@
     </ul>
   </div>
 
+  <div class="username-display" id="usernameDisplay"></div>
+
   <main>
     <h1>Create an Account</h1>
     <form onsubmit="signup(event)">
-      <input type="text" id="signupUsername" placeholder="Pick a Username" required />
+      <input type="text" id="signupName" placeholder="Your Name" required />
       <input type="email" id="signupEmail" placeholder="Your Email" required />
       <input type="password" id="signupPassword" placeholder="Create a Password" required />
-      <input type="submit" value="Sign Up with Email"/>
+      <input type="submit" value="Sign Up" />
     </form>
 
     <hr>
-    <button onclick="googleSignup()">Sign Up with Google</button>
+
+    <button class="google-btn" onclick="googleSignup()">
+      <img class="google-logo" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
+      Sign up with Google
+    </button>
   </main>
 
   <footer>
@@ -62,31 +96,46 @@
   <script>
     function signup(event) {
       event.preventDefault();
+      const name = document.getElementById("signupName").value;
       const email = document.getElementById("signupEmail").value;
       const password = document.getElementById("signupPassword").value;
-      const username = document.getElementById("signupUsername").value;
 
       auth.createUserWithEmailAndPassword(email, password)
-        .then(() => {
-          localStorage.setItem("username", username);
-          alert("Signed up successfully!");
+        .then(userCredential => {
+          localStorage.setItem("username", name);
+          alert("Account created!");
           window.location.href = "index.html";
         })
-        .catch(error => alert(error.message));
+        .catch(error => {
+          alert("Signup failed: " + error.message);
+        });
     }
 
     function googleSignup() {
       const provider = new firebase.auth.GoogleAuthProvider();
       auth.signInWithPopup(provider)
-        .then(() => {
-          let username = prompt("Pick a username:");
-          if (username) {
-            localStorage.setItem("username", username);
-            window.location.href = "index.html";
+        .then(result => {
+          let username = localStorage.getItem("username");
+          if (!username) {
+            username = prompt("Pick a username:");
+            if (username) {
+              localStorage.setItem("username", username);
+            }
           }
+          window.location.href = "index.html";
         })
-        .catch(error => alert(error.message));
+        .catch(error => {
+          alert("Google sign-up failed: " + error.message);
+        });
     }
+
+    // Show username if already logged in
+    window.onload = function () {
+      const username = localStorage.getItem("username");
+      if (username) {
+        document.getElementById("usernameDisplay").textContent = "Welcome, " + username;
+      }
+    };
   </script>
 </body>
 </html>
