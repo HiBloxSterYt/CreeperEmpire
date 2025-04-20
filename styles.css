@@ -10,6 +10,10 @@ body {
   font-family: 'Arial', sans-serif;
   background-color: #1b1b1b; /* Dark background */
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh; /* Full height for body */
 }
 
 /* Navbar */
@@ -47,35 +51,21 @@ body {
   color: #32cd32; /* Hover effect: green */
 }
 
-/* Button Styles */
-button {
-  background-color: #32cd32;
-  color: #000;
-  border: 2px solid #32cd32;
-  padding: 10px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-button:hover {
-  background-color: #000;
-  color: #32cd32;
-  border: 2px solid #000;
-}
-
 /* Footer */
 footer {
   background-color: #000;
   color: #fff;
   padding: 20px 0;
   text-align: center;
+  width: 100%;
+  position: relative;
 }
 
 footer .footer-links {
   display: flex;
   justify-content: center;
   gap: 15px;
+  margin-bottom: 10px;
 }
 
 footer .footer-links a {
@@ -86,6 +76,10 @@ footer .footer-links a {
 
 footer .footer-links a:hover {
   color: #fff; /* White on hover */
+}
+
+footer p {
+  margin-top: 10px;
 }
 
 /* Page Titles */
@@ -127,4 +121,5 @@ main {
   align-items: center;
   justify-content: center;
   padding: 30px;
+  flex-grow: 1; /* Allow content to take remaining space */
 }
