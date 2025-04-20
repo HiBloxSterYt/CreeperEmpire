@@ -31,20 +31,25 @@
   Donate Robux
 </a>
 
-            <!-- Cookie Consent Popup -->
-<div id="cookieConsent" class="cookie-consent">
-  <p>🍪 We use cookies to enhance your experience on CreeperEmpire. <button onclick="acceptCookies()">Accept</button></p>
+            <!-- Cookie Consent Banner -->
+<div id="cookieConsentBanner" class="cookie-banner">
+  <div class="cookie-text">
+    <p>🍪 We use cookies to ensure you get the best experience on CreeperEmpire.</p>
+  </div>
+  <div class="cookie-actions">
+    <button onclick="acceptCookies()" class="accept-btn">Accept</button>
+  </div>
 </div>
 
 <script>
   function acceptCookies() {
     localStorage.setItem("cookiesAccepted", "yes");
-    document.getElementById("cookieConsent").style.display = "none";
+    document.getElementById("cookieConsentBanner").classList.remove("show");
   }
 
   window.addEventListener("load", () => {
     if (localStorage.getItem("cookiesAccepted") !== "yes") {
-      document.getElementById("cookieConsent").style.display = "block";
+      document.getElementById("cookieConsentBanner").classList.add("show");
     }
   });
 </script>
