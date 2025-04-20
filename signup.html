@@ -63,9 +63,8 @@
         <li><a href="signup.html">Sign Up</a></li>
         <li><a href="donate.html">Donate Robux</a></li>
     </ul>
-    <!-- Display user profile name -->
     <span id="usernameDisplay" class="username-display"></span>
-</div>
+  </div>
 
   <main>
     <h1>Create an Account</h1>
@@ -103,9 +102,10 @@
 
       auth.createUserWithEmailAndPassword(email, password)
         .then(userCredential => {
+          // Saving username after successful email/password signup
           localStorage.setItem("username", name);
           alert("Account created!");
-          window.location.href = "index.html";
+          window.location.href = "index.html"; // Redirect to home page after successful signup
         })
         .catch(error => {
           alert("Signup failed: " + error.message);
@@ -116,14 +116,19 @@
       const provider = new firebase.auth.GoogleAuthProvider();
       auth.signInWithPopup(provider)
         .then(result => {
-          let username = localStorage.getItem("username");
+          const user = result.user;
+          const username = localStorage.getItem("username");
+
+          // If username is not set, prompt for a username
           if (!username) {
-            username = prompt("Pick a username:");
+            const username = prompt("Pick a username:");
             if (username) {
               localStorage.setItem("username", username);
             }
           }
-          window.location.href = "index.html";
+
+          alert("Google sign-up successful!");
+          window.location.href = "index.html"; // Redirect to home page after Google signup
         })
         .catch(error => {
           alert("Google sign-up failed: " + error.message);
