@@ -6,6 +6,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login - CreeperEmpire</title>
         <link rel="stylesheet" href="styles.css">
+        <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCjzYShI8O3kiMCfQItfZzPECIRKir2Vgo",
+    authDomain: "creeperempire-6fff6.firebaseapp.com",
+    projectId: "creeperempire-6fff6",
+    appId: "1:120725025254:web:64dac90cee89a5b5b22627"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+</script>
+
     </head>
     <body>
         <div class="navbar">
