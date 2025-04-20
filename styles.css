@@ -179,4 +179,22 @@
       padding: 30px;
       flex-grow: 1;
     }
-    
+
+.donate-robux-btn {
+    display: inline-block;
+    background-color: #00ff00;
+    color: #111;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4);
+}
+.donate-robux-btn:hover {
+    background-color: #00cc00;
+    transform: scale(1.05);
+}
