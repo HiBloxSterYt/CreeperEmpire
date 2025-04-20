@@ -319,3 +319,10 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+.username-display {
+  color: #00ff00;
+  font-weight: bold;
+  margin-left: 15px;
+  font-family: 'Minecraft', sans-serif;
+}
