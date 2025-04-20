@@ -1,62 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup - CreeperEmpire</title>
+  <link rel="stylesheet" href="styles.css"/>
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Signup - CreeperEmpire</title>
-        <link rel="stylesheet" href="styles.css">
-        <!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
 
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyCjzYShI8O3kiMCfQItfZzPECIRKir2Vgo",
-    authDomain: "creeperempire-6fff6.firebaseapp.com",
-    projectId: "creeperempire-6fff6",
-    appId: "1:120725025254:web:64dac90cee89a5b5b22627"
-  };
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCjzYShI8O3kiMCfQItfZzPECIRKir2Vgo",
+      authDomain: "creeperempire-6fff6.firebaseapp.com",
+      projectId: "creeperempire-6fff6",
+      appId: "1:120725025254:web:64dac90cee89a5b5b22627"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+  </script>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">CreeperEmpire</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="updates.html">Updates</a></li>
+      <li><a href="rates.html">Rates</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="signup.html" class="active">Sign Up</a></li>
+      <li><a href="donate.html">Donate Robux</a></li>
+    </ul>
+  </div>
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-</script>
+  <main>
+    <h1>Create an Account</h1>
+    <form onsubmit="signup(event)">
+      <input type="text" id="signupUsername" placeholder="Pick a Username" required />
+      <input type="email" id="signupEmail" placeholder="Your Email" required />
+      <input type="password" id="signupPassword" placeholder="Create a Password" required />
+      <input type="submit" value="Sign Up with Email"/>
+    </form>
 
-    </head>
-    <body>
-        <div class="navbar">
-            <div class="logo">CreeperEmpire</div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="updates.html" class="active">Updates</a></li>
-              <li><a href="rates.html" class="active">Rates</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="signup.html">Sign Up</a></li>
-                <li><a href="donate.html">Donate Robux</a></li>
-            </ul>
-        </div>
+    <hr>
+    <button onclick="googleSignup()">Sign Up with Google</button>
+  </main>
 
-        <main>
-            <h1>Create an Account</h1>
-            <form action="">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <input type="password" placeholder="Create a Password" required>
-                <input type="submit" value="Sign Up">
-            </form>
-        </main>
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/azUMKejk">Discord</a>
+      <a href="https://www.roblox.com/users/2315263283/profile">Roblox</a>
+      <a href="https://www.youtube.com/@HiBloxSterYt">YouTube</a>
+      <a href="https://www.roblox.com/gift-robux?user=2315263283">Donate Robux</a>
+    </div>
+    <p>&copy; 2025 CreeperEmpire. All rights reserved.</p>
+  </footer>
 
-        <footer>
-            <div class="footer-links">
-                <a href="https://discord.gg/azUMKejk">Discord</a>
-                <a href="https://www.roblox.com/users/2315263283/profile">Roblox</a>
-                <a href="https://www.youtube.com/@HiBloxSterYt">YouTube</a>
-                <a href="https://www.roblox.com/gift-robux?user=2315263283">Donate Robux</a>
-            </div>
-            <p>&copy; 2025 CreeperEmpire. All rights reserved.</p>
-        </footer>
-    </body>
-    </html>
-    
+  <script>
+    function signup(event) {
+      event.preventDefault();
+      const email = document.getElementById("signupEmail").value;
+      const password = document.getElementById("signupPassword").value;
+      const username = document.getElementById("signupUsername").value;
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          localStorage.setItem("username", username);
+          alert("Signed up successfully!");
+          window.location.href = "index.html";
+        })
+        .catch(error => alert(error.message));
+    }
+
+    function googleSignup() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(() => {
+          let username = prompt("Pick a username:");
+          if (username) {
+            localStorage.setItem("username", username);
+            window.location.href = "index.html";
+          }
+        })
+        .catch(error => alert(error.message));
+    }
+  </script>
+</body>
+</html>
