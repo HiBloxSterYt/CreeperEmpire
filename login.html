@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login - CreeperEmpire</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="auth.js"></script>
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
@@ -65,10 +64,6 @@
       color: white;
     }
 
-    .navbar .nav-links li a.active {
-      font-weight: bold;
-    }
-
     .username-display {
       position: fixed;
       top: 5px;
@@ -90,28 +85,21 @@
     input {
       padding: 10px;
       margin: 10px;
-      width: 200px;
+      width: 250px;
       font-size: 16px;
       border-radius: 5px;
       border: 1px solid #ccc;
     }
 
-    .google-btn {
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: white;
-      border: 1px solid #ccc;
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
       border-radius: 5px;
-      padding: 8px 12px;
+      background-color: #333;
+      color: white;
+      border: none;
       cursor: pointer;
-      font-weight: bold;
-    }
-
-    .google-logo {
-      width: 20px;
-      height: 20px;
+      margin-top: 10px;
     }
 
     footer {
@@ -131,7 +119,6 @@
     footer a:hover {
       text-decoration: underline;
     }
-
   </style>
 </head>
 <body>
@@ -141,30 +128,28 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li><a href="updates.html" class="active">Updates</a></li>
-      <li><a href="rates.html" class="active">Rates</a></li>
-      <li><a href="login.html">Login</a></li>
+      <li><a href="updates.html">Updates</a></li>
+      <li><a href="rates.html">Rates</a></li>
+      <li><a href="login.html" class="active">Login</a></li>
       <li><a href="signup.html">Sign Up</a></li>
       <li><a href="donate.html">Donate Robux</a></li>
     </ul>
-    <!-- Display user profile name -->
     <span id="usernameDisplay" class="username-display"></span>
   </div>
 
   <main>
     <h1>Login</h1>
-    <form onsubmit="login(event)">
-      <input type="email" id="loginEmail" placeholder="Your Email" required />
-      <input type="password" id="loginPassword" placeholder="Your Password" required />
-      <input type="submit" value="Login" />
-    </form>
+
+    <input type="text" id="phoneNumber" placeholder="+1 555-555-5555" />
+    <div id="recaptcha-container"></div>
+    <button onclick="sendCode()">Send Code</button>
+
+    <input type="text" id="otpCode" placeholder="Enter OTP Code" />
+    <button onclick="verifyCode()">Verify Code</button>
 
     <hr>
 
-    <button class="google-btn" onclick="googleLogin()">
-      <img class="google-logo" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
-      Login with Google
-    </button>
+    <button onclick="anonymousLogin()">Login Anonymously</button>
   </main>
 
   <footer>
@@ -178,41 +163,57 @@
   </footer>
 
   <script>
-    function login(event) {
-      event.preventDefault();
-      const email = document.getElementById("loginEmail").value;
-      const password = document.getElementById("loginPassword").value;
+    let confirmationResult;
 
-      auth.signInWithEmailAndPassword(email, password)
-        .then(userCredential => {
-          const user = userCredential.user;
-          alert("Login successful!");
-          window.location.href = "index.html"; // Redirect to index.html after login
-        })
-        .catch(error => {
-          alert("Login failed: " + error.message);
-        });
-    }
-
-    function googleLogin() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider)
-        .then(result => {
-          alert("Google login successful!");
-          window.location.href = "index.html"; // Redirect to index.html after login
-        })
-        .catch(error => {
-          alert("Google login failed: " + error.message);
-        });
-    }
-
-    // Display username on page load if logged in
-    window.onload = function () {
-      const user = firebase.auth().currentUser;
-      if (user) {
-        document.getElementById("usernameDisplay").textContent = "Welcome, " + user.displayName;
-      }
+    window.onload = () => {
+      new firebase.auth.RecaptchaVerifier("recaptcha-container", {
+        size: "normal",
+        callback: function (response) {
+          console.log("reCAPTCHA verified");
+        }
+      });
     };
+
+    function sendCode() {
+      const phoneNumber = document.getElementById("phoneNumber").value;
+      const appVerifier = window.recaptchaVerifier;
+
+      auth.signInWithPhoneNumber(phoneNumber, appVerifier)
+        .then(result => {
+          confirmationResult = result;
+          alert("OTP sent!");
+        })
+        .catch(error => {
+          alert("Error: " + error.message);
+        });
+    }
+
+    function verifyCode() {
+      const code = document.getElementById("otpCode").value;
+      if (confirmationResult) {
+        confirmationResult.confirm(code)
+          .then(result => {
+            alert("Phone login successful!");
+            window.location.href = "index.html";
+          })
+          .catch(error => {
+            alert("Incorrect code: " + error.message);
+          });
+      } else {
+        alert("Please request an OTP first.");
+      }
+    }
+
+    function anonymousLogin() {
+      auth.signInAnonymously()
+        .then(() => {
+          alert("Logged in anonymously!");
+          window.location.href = "index.html";
+        })
+        .catch(error => {
+          alert("Error: " + error.message);
+        });
+    }
   </script>
 </body>
 </html>
