@@ -213,6 +213,14 @@
         });
     }
 
+    // Handle Firebase auth state
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        const username = localStorage.getItem("username") || user.displayName || "User";
+        document.getElementById("usernameDisplay").textContent = "Welcome, " + username;
+      }
+    });
+
     // Show username if available
     window.onload = function () {
       const username = localStorage.getItem("username");
