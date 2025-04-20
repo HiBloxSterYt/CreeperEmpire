@@ -1,0 +1,182 @@
+
+    /* Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #282828; /* Dark background for the default theme */
+      color: #f0f0f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
+    }
+    
+    /* Toggle Button (Dark/Light mode) */
+    #theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    
+    .navbar {
+      background-color: #00aa00; /* Creeper Green */
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .navbar .logo {
+      font-size: 1.5rem;
+      color: #000;
+      font-weight: bold;
+    }
+    
+    .navbar .nav-links {
+      list-style: none;
+      display: flex;
+    }
+    
+    .navbar .nav-links li {
+      margin: 0 10px;
+    }
+    
+    .navbar .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    
+    .navbar .nav-links a:hover {
+      color: #00ff00; /* Creeper Green Hover */
+    }
+    
+    /* Page Titles */
+    h1, h2 {
+      color: #00ff00; /* Creeper Green */
+      font-weight: 700;
+      text-align: center;
+    }
+    
+    /* Button Styles */
+    button {
+      background-color: #00aa00; /* Creeper Green */
+      color: #000;
+      border: 2px solid #00aa00;
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    button:hover {
+      background-color: #000;
+      color: #00aa00;
+      border: 2px solid #000;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #222;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+    
+    footer .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+    
+    footer .footer-links a {
+      text-decoration: none;
+      color: #00ff00; /* Creeper Green links */
+      font-weight: 500;
+    }
+    
+    footer .footer-links a:hover {
+      color: #fff;
+    }
+    
+    footer p {
+      margin-top: 10px;
+    }
+    
+    /* Form Elements */
+    input, textarea {
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #00aa00;
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+    }
+    
+    input[type="submit"] {
+      background-color: #00aa00;
+      border: none;
+      cursor: pointer;
+    }
+    
+    input[type="submit"]:hover {
+      background-color: #000;
+      color: #00aa00;
+    }
+    
+    /* Light Mode */
+    body.light-mode {
+      background-color: #f0f0f0;
+      color: #282828;
+    }
+    
+    .navbar.light-mode {
+      background-color: #2a9d2f; /* Lighter Green for light mode */
+    }
+    
+    .navbar.light-mode .nav-links a {
+      color: #282828;
+    }
+    
+    button.light-mode {
+      background-color: #2a9d2f;
+      color: #fff;
+      border: 2px solid #2a9d2f;
+    }
+    
+    button.light-mode:hover {
+      background-color: #fff;
+      color: #2a9d2f;
+      border: 2px solid #fff;
+    }
+    
+    /* Page Titles in Light Mode */
+    body.light-mode h1, body.light-mode h2 {
+      color: #2a9d2f;
+    }
+    
+    /* Smooth transition */
+    section {
+      padding: 20px;
+    }
+    
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      flex-grow: 1;
+    }
+    
