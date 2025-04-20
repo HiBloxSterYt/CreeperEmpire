@@ -185,10 +185,9 @@
 
       auth.signInWithEmailAndPassword(email, password)
         .then(userCredential => {
-          const name = userCredential.user.displayName || "User";
-          localStorage.setItem("username", name);
+          const user = userCredential.user;
           alert("Login successful!");
-          window.location.href = "index.html";
+          window.location.href = "index.html"; // Redirect to index.html after login
         })
         .catch(error => {
           alert("Login failed: " + error.message);
@@ -199,33 +198,19 @@
       const provider = new firebase.auth.GoogleAuthProvider();
       auth.signInWithPopup(provider)
         .then(result => {
-          let username = localStorage.getItem("username");
-          if (!username) {
-            username = prompt("Pick a username:");
-            if (username) {
-              localStorage.setItem("username", username);
-            }
-          }
-          window.location.href = "index.html";
+          alert("Google login successful!");
+          window.location.href = "index.html"; // Redirect to index.html after login
         })
         .catch(error => {
           alert("Google login failed: " + error.message);
         });
     }
 
-    // Handle Firebase auth state
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        const username = localStorage.getItem("username") || user.displayName || "User";
-        document.getElementById("usernameDisplay").textContent = "Welcome, " + username;
-      }
-    });
-
-    // Show username if available
+    // Display username on page load if logged in
     window.onload = function () {
-      const username = localStorage.getItem("username");
-      if (username) {
-        document.getElementById("usernameDisplay").textContent = "Welcome, " + username;
+      const user = firebase.auth().currentUser;
+      if (user) {
+        document.getElementById("usernameDisplay").textContent = "Welcome, " + user.displayName;
       }
     };
   </script>
