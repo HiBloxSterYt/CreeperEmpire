@@ -198,3 +198,31 @@
     background-color: #00cc00;
     transform: scale(1.05);
 }
+
+.update-log {
+  margin-top: 2rem;
+}
+
+.update {
+  background-color: #004d00;
+  border-left: 4px solid #00ff00;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,255,0,0.3);
+}
+
+.update h2 {
+  color: #00ff00;
+  margin-bottom: 0.5rem;
+}
+
+.update ul {
+  list-style: none;
+  padding-left: 1rem;
+}
+
+.update ul li::before {
+  content: "✔️ ";
+  color: #00ff00;
+}
