@@ -30,6 +30,25 @@
             <a href="https://www.roblox.com/gift-robux?user=2315263283" target="_blank" class="donate-robux-btn">
   Donate Robux
 </a>
+
+            <!-- Cookie Consent Popup -->
+<div id="cookieConsent" class="cookie-consent">
+  <p>🍪 We use cookies to enhance your experience on CreeperEmpire. <button onclick="acceptCookies()">Accept</button></p>
+</div>
+
+<script>
+  function acceptCookies() {
+    localStorage.setItem("cookiesAccepted", "yes");
+    document.getElementById("cookieConsent").style.display = "none";
+  }
+
+  window.addEventListener("load", () => {
+    if (localStorage.getItem("cookiesAccepted") !== "yes") {
+      document.getElementById("cookieConsent").style.display = "block";
+    }
+  });
+</script>
+            
         </main>
 
         <footer>
