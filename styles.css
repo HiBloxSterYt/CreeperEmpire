@@ -1,44 +1,130 @@
-body {
+/* Reset default margins and padding */
+* {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #1a1a1a;
-  color: #d4ff00;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* Body */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #1b1b1b; /* Dark background */
+  color: #fff;
+}
+
+/* Navbar */
 .navbar {
+  background-color: #32cd32; /* Creeper Green */
+  padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #006400;
-  padding: 1em;
 }
 
 .navbar .logo {
+  font-size: 1.5rem;
+  color: #000;
   font-weight: bold;
-  font-size: 1.5em;
 }
 
-.nav-links {
+.navbar .nav-links {
   list-style: none;
   display: flex;
-  gap: 1em;
 }
 
-.nav-links li a {
-  color: #d4ff00;
+.navbar .nav-links li {
+  margin: 0 10px;
+}
+
+.navbar .nav-links a {
   text-decoration: none;
+  color: #000;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
+.navbar .nav-links a:hover {
+  color: #32cd32; /* Hover effect: green */
+}
+
+/* Button Styles */
+button {
+  background-color: #32cd32;
+  color: #000;
+  border: 2px solid #32cd32;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #000;
+  color: #32cd32;
+  border: 2px solid #000;
+}
+
+/* Footer */
 footer {
-  background: #003300;
-  padding: 1em;
+  background-color: #000;
+  color: #fff;
+  padding: 20px 0;
   text-align: center;
 }
 
-footer ul {
-  list-style: none;
-  padding: 0;
+footer .footer-links {
   display: flex;
-  gap: 1em;
   justify-content: center;
+  gap: 15px;
+}
+
+footer .footer-links a {
+  text-decoration: none;
+  color: #32cd32; /* Green links */
+  font-weight: 500;
+}
+
+footer .footer-links a:hover {
+  color: #fff; /* White on hover */
+}
+
+/* Page Titles */
+h1, h2 {
+  color: #32cd32;
+  font-weight: 700;
+}
+
+/* Form Elements */
+input, textarea {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #32cd32;
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%;
+}
+
+input[type="submit"] {
+  background-color: #32cd32;
+  border: none;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #000;
+  color: #32cd32;
+}
+
+/* Add some padding to content */
+section {
+  padding: 20px;
+}
+
+/* Centering main content */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
 }
