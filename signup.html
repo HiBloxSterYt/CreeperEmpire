@@ -6,28 +6,26 @@
   <title>Sign Up - CreeperEmpire</title>
   <link rel="stylesheet" href="styles.css" />
 
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js"></script>
 
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyCjzYShI8O3kiMCfQItfZzPECIRKir2Vgo",
       authDomain: "creeperempire-6fff6.firebaseapp.com",
       projectId: "creeperempire-6fff6",
-      databaseURL: "https://creeperempire-6fff6-default-rtdb.firebaseio.com",
       appId: "1:120725025254:web:64dac90cee89a5b5b22627"
     };
 
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
-    const database = firebase.database();
   </script>
 
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
+      background-color: #f4f4f4;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -35,85 +33,80 @@
       height: 100vh;
       margin: 0;
     }
-
     input {
       padding: 10px;
       margin: 10px;
-      width: 220px;
-      font-size: 16px;
+      width: 250px;
       border-radius: 5px;
       border: 1px solid #ccc;
+      font-size: 16px;
     }
-
     button {
       padding: 10px 20px;
-      margin: 10px;
       font-size: 16px;
-      border-radius: 5px;
-      border: none;
-      background-color: #333;
-      color: white;
       cursor: pointer;
-    }
-
-    #recaptcha-container {
+      border: none;
+      background-color: green;
+      color: white;
+      border-radius: 5px;
       margin-top: 10px;
     }
   </style>
 </head>
 <body>
   <h1>Sign Up</h1>
-  <input type="text" id="username" placeholder="Username" required />
-  <input type="text" id="phoneNumber" placeholder="+1 555-123-4567" required />
+  <input type="text" id="username" placeholder="Enter your username" required />
+  <input type="tel" id="phoneNumber" placeholder="+1 234 567 8901" required />
   <div id="recaptcha-container"></div>
-  <button onclick="sendVerificationCode()">Send Code</button>
+  <button onclick="sendCode()">Send Code</button>
 
-  <input type="text" id="smsCode" placeholder="Enter SMS Code" />
-  <button onclick="verifyCode()">Verify & Login</button>
+  <div id="verifySection" style="display:none;">
+    <input type="text" id="verificationCode" placeholder="Enter verification code" />
+    <button onclick="verifyCode()">Verify and Sign Up</button>
+  </div>
 
   <script>
     let confirmationResult;
 
-    function sendVerificationCode() {
-      const phoneNumber = document.getElementById("phoneNumber").value;
+    function sendCode() {
+      const phone = document.getElementById("phoneNumber").value;
+      const username = document.getElementById("username").value;
+
+      if (!phone || !username) {
+        alert("Please enter both username and phone number.");
+        return;
+      }
 
       window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-        size: 'normal',
-        callback: function(response) {
-          console.log("reCAPTCHA verified");
-        }
+        size: 'invisible'
       });
 
-      auth.signInWithPhoneNumber(phoneNumber, window.recaptchaVerifier)
+      auth.signInWithPhoneNumber(phone, window.recaptchaVerifier)
         .then(result => {
           confirmationResult = result;
           alert("SMS sent. Please check your phone.");
+          document.getElementById("verifySection").style.display = "block";
         })
         .catch(error => {
-          alert("Error sending SMS: " + error.message);
+          alert("Error sending code: " + error.message);
         });
     }
 
     function verifyCode() {
-      const code = document.getElementById("smsCode").value;
+      const code = document.getElementById("verificationCode").value;
       const username = document.getElementById("username").value;
 
-      confirmationResult.confirm(code)
-        .then(result => {
-          const user = result.user;
-          // Save the username to the database
-          return database.ref("users/" + user.uid).set({
-            username: username,
-            phone: user.phoneNumber
+      confirmationResult.confirm(code).then(result => {
+        const user = result.user;
+
+        user.updateProfile({ displayName: username })
+          .then(() => {
+            alert("Sign up complete!");
+            window.location.href = "index.html";
           });
-        })
-        .then(() => {
-          alert("Signup complete!");
-          window.location.href = "index.html";
-        })
-        .catch(error => {
-          alert("Verification failed: " + error.message);
-        });
+      }).catch(error => {
+        alert("Verification failed: " + error.message);
+      });
     }
   </script>
 </body>
