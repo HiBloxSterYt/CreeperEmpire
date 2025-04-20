@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Signup - CreeperEmpire</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="auth.js"></script>
   
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
 
   <script>
+    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyCjzYShI8O3kiMCfQItfZzPECIRKir2Vgo",
       authDomain: "creeperempire-6fff6.firebaseapp.com",
@@ -19,9 +19,11 @@
       appId: "1:120725025254:web:64dac90cee89a5b5b22627"
     };
 
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
   </script>
+
   <style>
     .google-btn {
       margin-top: 10px;
@@ -63,6 +65,7 @@
         <li><a href="signup.html">Sign Up</a></li>
         <li><a href="donate.html">Donate Robux</a></li>
     </ul>
+    <!-- Display user profile name -->
     <span id="usernameDisplay" class="username-display"></span>
   </div>
 
@@ -94,6 +97,7 @@
   </footer>
 
   <script>
+    // Standard sign-up function with email and password
     function signup(event) {
       event.preventDefault();
       const name = document.getElementById("signupName").value;
@@ -102,33 +106,30 @@
 
       auth.createUserWithEmailAndPassword(email, password)
         .then(userCredential => {
-          // Saving username after successful email/password signup
           localStorage.setItem("username", name);
           alert("Account created!");
-          window.location.href = "index.html"; // Redirect to home page after successful signup
+          window.location.href = "index.html";
         })
         .catch(error => {
           alert("Signup failed: " + error.message);
         });
     }
 
+    // Google Sign-up
     function googleSignup() {
       const provider = new firebase.auth.GoogleAuthProvider();
       auth.signInWithPopup(provider)
         .then(result => {
           const user = result.user;
-          const username = localStorage.getItem("username");
+          let username = localStorage.getItem("username");
 
-          // If username is not set, prompt for a username
           if (!username) {
-            const username = prompt("Pick a username:");
+            username = prompt("Pick a username:");
             if (username) {
               localStorage.setItem("username", username);
             }
           }
-
-          alert("Google sign-up successful!");
-          window.location.href = "index.html"; // Redirect to home page after Google signup
+          window.location.href = "index.html";
         })
         .catch(error => {
           alert("Google sign-up failed: " + error.message);
