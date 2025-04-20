@@ -255,6 +255,46 @@
   font-size: 1.2rem;
 }
 
+.cookie-banner {
+  position: fixed;
+  bottom: -100px;
+  left: 0;
+  right: 0;
+  background-color: #014d01;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  box-shadow: 0 -2px 10px rgba(0, 255, 0, 0.3);
+  transition: bottom 0.5s ease-in-out;
+  z-index: 9999;
+}
+
+.cookie-banner.show {
+  bottom: 0;
+}
+
+.cookie-text p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.cookie-actions .accept-btn {
+  background-color: #00ff00;
+  color: #003300;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cookie-actions .accept-btn:hover {
+  background-color: #33ff33;
+}
+
 .cookie-consent {
   display: none;
   position: fixed;
