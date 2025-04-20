@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="styles.css" />
   <script src="auth.js"></script>
 
-
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
@@ -25,6 +24,78 @@
   </script>
 
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .navbar {
+      background-color: #333;
+      padding: 10px;
+      width: 100%;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .navbar .nav-links {
+      list-style: none;
+      display: flex;
+    }
+
+    .navbar .nav-links li {
+      margin: 0 10px;
+    }
+
+    .navbar .nav-links li a {
+      text-decoration: none;
+      color: white;
+    }
+
+    .navbar .nav-links li a.active {
+      font-weight: bold;
+    }
+
+    .username-display {
+      position: fixed;
+      top: 5px;
+      left: 10px;
+      font-weight: bold;
+      color: green;
+    }
+
+    main {
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      margin: 10px;
+      width: 200px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
     .google-btn {
       margin-top: 10px;
       display: flex;
@@ -43,34 +114,42 @@
       height: 20px;
     }
 
-    .username-display {
-      position: fixed;
-      top: 5px;
-      left: 10px;
-      font-weight: bold;
-      color: green;
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: white;
+      width: 100%;
     }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
   </style>
 </head>
 <body>
   <div class="navbar">
-    <div class="navbar">
     <div class="logo">CreeperEmpire</div>
     <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="updates.html" class="active">Updates</a></li>
-        <li><a href="rates.html" class="active">Rates</a></li>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="signup.html">Sign Up</a></li>
-        <li><a href="donate.html">Donate Robux</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="updates.html" class="active">Updates</a></li>
+      <li><a href="rates.html" class="active">Rates</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="signup.html">Sign Up</a></li>
+      <li><a href="donate.html">Donate Robux</a></li>
     </ul>
     <!-- Display user profile name -->
     <span id="usernameDisplay" class="username-display"></span>
-</div>
-
-  <div class="username-display" id="usernameDisplay"></div>
+  </div>
 
   <main>
     <h1>Login</h1>
