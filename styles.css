@@ -226,3 +226,31 @@
   content: "✔️ ";
   color: #00ff00;
 }
+
+.ratings {
+  margin-top: 2rem;
+}
+
+.rate {
+  background-color: #004d00;
+  border-left: 5px solid #00ff00;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.rate h3 {
+  color: #00ff00;
+  margin-bottom: 0.5rem;
+}
+
+.rate p {
+  color: #cfcfcf;
+  font-style: italic;
+}
+
+.stars {
+  color: gold;
+  font-size: 1.2rem;
+}
